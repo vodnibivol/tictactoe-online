@@ -12,16 +12,16 @@ const Bomba = {
   noBc: false,
 
   get msg() {
-    if (this.playerNo === -1) return 'GLEDALEC';
+    if (this.playerNo === -1) return 'OBSERVER'; // 'GLEDALEC';
 
-    if (this.playersNo < 2) return 'ČAKAM NA NASPROTNIKA...';
-    else if (this.winner !== null) return this.winner === this.playerNo ? 'ZMAGA' : 'PORAZ';
-    else if (this.draw) return 'NEODLOČENO...';
-    else if (this.noBc) return 'NAČIN GOLJUFANJA HEHE'; // NOTE
-    else return this.yourTurn ? 'TVOJA POTEZA' : 'NASPROTNIKOVA POTEZA';
+    if (this.playersNo < 2) return 'WAITING FOR OPPONENT...'; // 'ČAKAM NA NASPROTNIKA...';
+    else if (this.winner !== null) return this.winner === this.playerNo ? 'WINER' : 'LOSER'; // 'ZMAGA' : 'PORAZ';
+    else if (this.draw) return 'DRAW...'; // 'NEODLOČENO...';
+    else if (this.noBc) return 'CHEATING MODE HEHE'; // 'NAČIN GOLJUFANJA HEHE'; // NOTE
+    else return this.yourTurn ? 'YOUR TURN' : "OPPONENT'S TURN"; // 'TVOJA POTEZA' : 'NASPROTNIKOVA POTEZA';
   },
 
-  get msgShown() {
+  get msgIsVisible() {
     return (
       this.noBc || this.playerNo === -1 || this.playersNo < 2 || this.winner !== null || this.draw || this.msgAlert
     );
