@@ -1,5 +1,5 @@
 const $ = (sel) => document.querySelector(sel);
-const socket = io({ path: '/tictactoe/socket.io/', transports: ['websocket', 'polling'] });
+const socket = io({ path: '../socket.io/', transports: ['websocket', 'polling'] });
 
 const Bomba = {
   roomName: new URLSearchParams(location.search).get('r'),
@@ -15,7 +15,7 @@ const Bomba = {
     if (this.playerNo === -1) return 'OBSERVER'; // 'GLEDALEC';
 
     if (this.playersNo < 2) return 'WAITING FOR OPPONENT...'; // 'ČAKAM NA NASPROTNIKA...';
-    else if (this.winner !== null) return this.winner === this.playerNo ? 'WINER' : 'LOSER'; // 'ZMAGA' : 'PORAZ';
+    else if (this.winner !== null) return this.winner === this.playerNo ? 'WINNER' : 'LOSER'; // 'ZMAGA' : 'PORAZ';
     else if (this.draw) return 'DRAW...'; // 'NEODLOČENO...';
     else if (this.noBc) return 'CHEATING MODE HEHE'; // 'NAČIN GOLJUFANJA HEHE'; // NOTE
     else return this.yourTurn ? 'YOUR TURN' : "OPPONENT'S TURN"; // 'TVOJA POTEZA' : 'NASPROTNIKOVA POTEZA';
