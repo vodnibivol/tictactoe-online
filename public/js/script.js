@@ -1,5 +1,7 @@
 const $ = (sel) => document.querySelector(sel);
-const socket = io();
+const socket = io.connect('/tictactoe/', {
+  path: '/tictactoe',
+});
 
 const Bomba = {
   roomName: new URLSearchParams(location.search).get('r'),
