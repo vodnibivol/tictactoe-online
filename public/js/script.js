@@ -1,6 +1,6 @@
 const $ = (sel) => document.querySelector(sel);
-const socket = io.connect('/tictactoe/', {
-  path: '/tictactoe',
+const socket = io.connect('/', {
+  path: '/tictactoe/',
 });
 
 const Bomba = {
