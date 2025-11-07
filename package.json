@@ -1,5 +1,5 @@
 {
-  "name": "bomba",
+  "name": "tictactoe",
   "version": "1.0.0",
   "description": "krizci in krozci",
   "main": "server.js",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "bomba"
+    "url": "tictactoe"
   },
   "keywords": [
     "krizci",
     "krozci",
-    "bomba"
+    "tictactoe"
   ],
   "author": "vodnibivol",
   "license": "ISC",

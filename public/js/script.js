@@ -1,7 +1,7 @@
 const $ = (sel) => document.querySelector(sel);
 const socket = io({ path: '/tictactoe/socket.io/', transports: ['websocket', 'polling'] });
 
-const Bomba = {
+const Ttt = {
   roomName: new URLSearchParams(location.search).get('r'),
   cells: new Array(9).fill(-1),
   playerNo: -1, // 0 ali 1, določi server
@@ -51,7 +51,7 @@ const Bomba = {
     });
 
     // --- other
-    document.title = this.roomName + ' | bomba';
+    document.title = this.roomName + ' | tic-tac-toe';
     document.onclick = (e) => e.target.matches('#board, .cell') || this.showMsg();
     document.onkeydown = (e) => e.key === 'g' && (this.noBc = !this.noBc);
   },
