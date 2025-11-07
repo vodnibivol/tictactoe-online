@@ -1,5 +1,5 @@
 const $ = (sel) => document.querySelector(sel);
-const socket = io({ path: '../socket.io/', transports: ['websocket', 'polling'] });
+const socket = io({ path: '/tictactoe/socket.io/', transports: ['websocket', 'polling'] });
 
 const Bomba = {
   roomName: new URLSearchParams(location.search).get('r'),
