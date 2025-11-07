@@ -10,8 +10,10 @@ const io = new Server(server);
 
 app.use(compression());
 
+// redirect
 app.get('/play', (req, res, next) => {
-  req.query.r ? next() : res.redirect('/');
+  if (req.query.r) next();
+  else res.redirect('..'); // home
 });
 
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
@@ -93,4 +95,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(5500, () => console.log('listening on *:5500'));
+server.listen(5500, () => console.log('listening on http://localhost:5500/'));
