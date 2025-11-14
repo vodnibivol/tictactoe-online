@@ -1,6 +1,7 @@
 {
   "name": "tictactoe",
   "version": "1.0.0",
+  "type": "module",
   "description": "krizci in krozci",
   "main": "server.js",
   "scripts": {

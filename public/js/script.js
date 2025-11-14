@@ -1,7 +1,12 @@
-const $ = (sel) => document.querySelector(sel);
-const socket = io({ path: '/tictactoe/socket.io/', transports: ['websocket', 'polling'] });
+'use strict';
 
-const Ttt = {
+const IS_DEV = /localhost|127.0.0.1|192.168|dev/.test(location.href);
+// eslint-disable-next-line no-undef
+const socket = io({ path: IS_DEV ? '/socket.io/' : '/tictactoe/socket.io/', transports: ['websocket', 'polling'] });
+
+import { strings } from './strings.js';
+
+window.Ttt = {
   roomName: new URLSearchParams(location.search).get('r'),
   cells: new Array(9).fill(-1),
   playerNo: -1, // 0 ali 1, določi server
@@ -9,16 +14,19 @@ const Ttt = {
   turn: -1,
   msgAlert: false, // pojavi se za določen čas, če kaj narobe klikneš ipd...
 
+  lang: 'en',
+
   noBc: false,
 
   get msg() {
-    if (this.playerNo === -1) return 'OBSERVER'; // 'GLEDALEC';
+    if (this.playerNo === -1) return strings[this.lang].observer; // 'GLEDALEC';
 
-    if (this.playersNo < 2) return 'WAITING FOR OPPONENT...'; // 'ČAKAM NA NASPROTNIKA...';
-    else if (this.winner !== null) return this.winner === this.playerNo ? 'WINNER' : 'LOSER'; // 'ZMAGA' : 'PORAZ';
-    else if (this.draw) return 'DRAW...'; // 'NEODLOČENO...';
-    else if (this.noBc) return 'CHEATING MODE HEHE'; // 'NAČIN GOLJUFANJA HEHE'; // NOTE
-    else return this.yourTurn ? 'YOUR TURN' : "OPPONENT'S TURN"; // 'TVOJA POTEZA' : 'NASPROTNIKOVA POTEZA';
+    if (this.playersNo < 2) return strings[this.lang].waiting_for_opponent;
+    else if (this.winner !== null)
+      return this.winner === this.playerNo ? strings[this.lang].winner : strings[this.lang].loser;
+    else if (this.draw) return strings[this.lang].draw;
+    else if (this.noBc) return strings[this.lang].cheating_mode;
+    else return this.yourTurn ? strings[this.lang].your_turn : strings[this.lang].opponents_turn;
   },
 
   get msgIsVisible() {
@@ -37,10 +45,8 @@ const Ttt = {
   },
 
   init() {
-    console.log(this.roomName);
-
     socket.emit('ACCESS_ROOM', this.roomName);
-    socket.on('GRANT_ROOM_ACCESS', ({ playerNo, roomName }) => {
+    socket.on('GRANT_ROOM_ACCESS', ({ playerNo }) => {
       this.playerNo = playerNo;
       console.log(this.playerNo);
     });
@@ -85,6 +91,7 @@ const Ttt = {
   },
 
   showMsg() {
-    (this.msgAlert = true) && setTimeout(() => (this.msgAlert = false), 2000);
+    this.msgAlert = true;
+    setTimeout(() => (this.msgAlert = false), 2000);
   },
 };

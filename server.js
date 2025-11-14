@@ -1,12 +1,17 @@
-const express = require('express');
-const compression = require('compression');
-const http = require('http');
-const path = require('path');
-const { Server } = require('socket.io');
+import express from 'express';
+import compression from 'compression';
+import http from 'http';
+import path from 'path';
+
+import { Server } from 'socket.io';
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { path: '/socket.io/' });
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename);
 
 app.use(compression());
 
@@ -30,7 +35,7 @@ const ROOMS = {
   clean() {
     // remove room if no players .. NOT USED because of server resetting...
     const keys = Object.keys(this.data);
-    for (let i = keys.length - 1; !!i; --i) {
+    for (let i = keys.length - 1; i; --i) {
       const key = keys[i];
       if (this.data[key].players[0] === null && this.data[key].players[1] === null) delete this.data[key];
     }
